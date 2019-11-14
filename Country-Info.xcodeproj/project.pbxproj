@@ -25,6 +25,7 @@
 		67BA7A14237D6B4600B4251A /* CountryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BA7A13237D6B4600B4251A /* CountryDetailController.swift */; };
 		67BA7A17237D74DD00B4251A /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BA7A15237D74DD00B4251A /* CountryTableViewCell.swift */; };
 		67BA7A18237D74DD00B4251A /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67BA7A16237D74DD00B4251A /* CountryTableViewCell.xib */; };
+		67BA7A1B237D9B8100B4251A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BA7A1A237D9B8100B4251A /* MapViewController.swift */; };
 		A1954370C0B1EF1F6993C88D /* Pods_Country_Info.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A943F84C1655FD480B615A0 /* Pods_Country_Info.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		67BA7A13237D6B4600B4251A /* CountryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailController.swift; sourceTree = "<group>"; };
 		67BA7A15237D74DD00B4251A /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
 		67BA7A16237D74DD00B4251A /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
+		67BA7A1A237D9B8100B4251A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		708184D063E74B930865AA21 /* Pods-Country-Info.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Country-Info.debug.xcconfig"; path = "Target Support Files/Pods-Country-Info/Pods-Country-Info.debug.xcconfig"; sourceTree = "<group>"; };
 		D4EB7C06A3412217D70C27E2 /* Pods-Country-Info.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Country-Info.release.xcconfig"; path = "Target Support Files/Pods-Country-Info/Pods-Country-Info.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,6 +161,7 @@
 				67BA7A0E237D62D300B4251A /* GlobalFunctions.swift */,
 				67BA7A10237D67DA00B4251A /* Country-Info-Bridging-Header.h */,
 				67BA7A13237D6B4600B4251A /* CountryDetailController.swift */,
+				67BA7A1A237D9B8100B4251A /* MapViewController.swift */,
 			);
 			path = "Country-Info";
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67BA7A1B237D9B8100B4251A /* MapViewController.swift in Sources */,
 				670B8D83237D3E31002353A3 /* SceneDelegate.swift in Sources */,
 				67BA7A14237D6B4600B4251A /* CountryDetailController.swift in Sources */,
 				67BA7A0D237D49C300B4251A /* TableViewController.swift in Sources */,

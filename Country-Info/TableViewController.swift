@@ -19,8 +19,8 @@ struct Country {
     let Languages : [String?]?
     let Currencies : [String?]?
     let flag : UIImageView?
-    
-    init(name: String?, capital: String?, region: String?, subRegion: String?, population: Int?, languages: [String?]?, currencies: [String?]?, flag: UIImageView?) {
+    let alpha3Code : String?
+    init(name: String?, capital: String?, region: String?, subRegion: String?, population: Int?, languages: [String?]?, currencies: [String?]?, flag: UIImageView?, alpha3Code:String?) {
         self.Name = name
         self.Capital = capital
         self.Region = region
@@ -29,6 +29,7 @@ struct Country {
         self.Currencies = currencies
         self.Languages = languages
         self.flag = flag
+        self.alpha3Code = alpha3Code
     }
 }
 
@@ -79,6 +80,7 @@ class TableViewController: UITableViewController {
                     let subregion = json[index]["subregion"].string
                     let population = json[index]["population"].int
                     let languagesJson = json[index]["languages"]
+                    let alpha3Code = json[index]["alpha3Code"].string
                     var languages = [String?]()
                     for index in 0..<languagesJson.count{
                         let language = languagesJson[index]["name"].string
@@ -96,7 +98,7 @@ class TableViewController: UITableViewController {
                     flag.sd_setImage(with: url) { (_, _, _, _) in
                         self.tableView.reloadData()
                     }
-                    countries.append(Country(name: name, capital: capital, region: region, subRegion: subregion, population: population, languages: languages, currencies: currencies, flag: flag))
+                    countries.append(Country(name: name, capital: capital, region: region, subRegion: subregion, population: population, languages: languages, currencies: currencies, flag: flag, alpha3Code: alpha3Code))
                     
                     if index+1 == json.count{
                         stopActivityIndicator()

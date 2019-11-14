@@ -17,6 +17,10 @@ class RegionCollectionViewCell: UICollectionViewCell {
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 2
         layer.cornerRadius = 15
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 1
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 10
     }
     public func configure(with model: Region) {
         imageView.image = model.image

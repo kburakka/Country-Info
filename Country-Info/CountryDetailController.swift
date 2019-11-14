@@ -7,18 +7,37 @@
 //
 
 import UIKit
+import MarqueeLabel
 var selectedCountry : Country?
 
 class CountryDetailController: UIViewController {
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var flagImageView: UIImageView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var seperator: UIView!
+    
+    func setFlagImageView(){
         flagImageView.image = selectedCountry?.flag?.image
 
+        flagImageView.layer.shadowColor = UIColor.black.cgColor
+        flagImageView.layer.shadowOpacity = 0.77
+        flagImageView.layer.shadowOffset = .zero
+        flagImageView.layer.shadowRadius = 8
+        
+        seperator.layer.shadowColor = UIColor.black.cgColor
+        seperator.layer.shadowOpacity = 0.77
+        seperator.layer.shadowOffset = CGSize(width: 3, height: 3)
+        seperator.layer.shadowRadius = 10
+    }
+    @IBAction func show(_ sender: Any) {
+        let controller = mainStoryboard.instantiateViewController(withIdentifier: "mapView") as! MapViewController
+        controller.modalPresentationStyle = .fullScreen
+        controller.modalTransitionStyle = .flipHorizontal
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func setDetails(){
         let mirror = Mirror(reflecting: selectedCountry ?? "")
-
         for index in mirror.children{
             let key = index.label ?? ""
             var value = index.value
@@ -31,27 +50,27 @@ class CountryDetailController: UIViewController {
             }else if (value as? [Int]) != nil{
                 value = (value as! [Int])
             }
-            if index.label != "flag"{
+            if index.label != "flag" && index.label != "alpha3Code"{
                 let stackViewHorizontal   = UIStackView()
                 stackViewHorizontal.axis  = .horizontal
                 stackViewHorizontal.distribution  = .fillProportionally
                 stackViewHorizontal.spacing   = 16.0
                 stackViewHorizontal.heightAnchor.constraint(equalToConstant: 50).isActive = true
-                
-                let labelKey = UILabel()
+
+                let labelKey = MarqueeLabel()
                 labelKey.textAlignment = .left
-                labelKey.text = "\(key)    "
+                labelKey.text = "\(key)"
                 labelKey.lineBreakMode = .byWordWrapping
                 labelKey.numberOfLines = 0
                 labelKey.widthAnchor.constraint(equalToConstant: 100).isActive = true
-                labelKey.font = UIFont(name: "Helvetica Neue Bold", size: 25)
+                labelKey.font = UIFont(name: "HelveticaNeue", size: 20)
                 
-                let labelValue = UILabel()
+                let labelValue = MarqueeLabel()
                 labelValue.textAlignment = .left
                 labelValue.text = ":  \(value)"
                 labelValue.lineBreakMode = .byWordWrapping
                 labelValue.numberOfLines = 0
-                labelValue.font = UIFont(name: "Helvetica Neue Bold", size: 25)
+                labelValue.font = UIFont(name: "HelveticaNeue", size: 20)
 
                 stackViewHorizontal.addArrangedSubview(labelKey)
                 stackViewHorizontal.addArrangedSubview(labelValue)
@@ -59,5 +78,11 @@ class CountryDetailController: UIViewController {
                 stackView.addArrangedSubview(stackViewHorizontal)
             }
         }
+
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setFlagImageView()
+        setDetails()
     }
 }
