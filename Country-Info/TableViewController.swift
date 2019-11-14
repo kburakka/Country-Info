@@ -11,23 +11,23 @@ import Alamofire
 import SwiftyJSON
 
 struct Country {
-    let name : String?
-    let capital : String?
-    let region : String?
-    let subRegion : String?
-    let population : Int?
-    let languages : [String?]?
-    let currencies : [String?]?
+    let Name : String?
+    let Capital : String?
+    let Region : String?
+    let SubRegion : String?
+    let Population : Int?
+    let Languages : [String?]?
+    let Currencies : [String?]?
     let flag : UIImageView?
     
     init(name: String?, capital: String?, region: String?, subRegion: String?, population: Int?, languages: [String?]?, currencies: [String?]?, flag: UIImageView?) {
-        self.name = name
-        self.capital = capital
-        self.region = region
-        self.subRegion = subRegion
-        self.population = population
-        self.currencies = currencies
-        self.languages = languages
+        self.Name = name
+        self.Capital = capital
+        self.Region = region
+        self.SubRegion = subRegion
+        self.Population = population
+        self.Currencies = currencies
+        self.Languages = languages
         self.flag = flag
     }
 }

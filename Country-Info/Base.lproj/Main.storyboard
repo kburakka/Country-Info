@@ -106,7 +106,7 @@
             </objects>
             <point key="canvasLocation" x="2768.1159420289855" y="108.48214285714285"/>
         </scene>
-        <!--Country Detail Controller-->
+        <!--Country Info-->
         <scene sceneID="owR-4K-KMh">
             <objects>
                 <viewController storyboardIdentifier="countryDetail" id="Ntg-vq-iAK" customClass="CountryDetailController" customModule="Country_Info" customModuleProvider="target" sceneMemberID="viewController">
@@ -120,18 +120,26 @@
                                     <constraint firstAttribute="height" constant="130" id="KzN-9I-Nzg"/>
                                 </constraints>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="VIb-sn-sKn">
+                                <rect key="frame" x="40" y="298" width="334" height="524"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="h7T-Rz-yG1" firstAttribute="bottom" secondItem="VIb-sn-sKn" secondAttribute="bottom" constant="40" id="6lF-7c-EwS"/>
+                            <constraint firstItem="h7T-Rz-yG1" firstAttribute="trailing" secondItem="VIb-sn-sKn" secondAttribute="trailing" constant="40" id="Pxz-P5-LIq"/>
                             <constraint firstItem="h7T-Rz-yG1" firstAttribute="trailing" secondItem="GcL-4i-oJS" secondAttribute="trailing" constant="40" id="QPh-ad-8Kj"/>
+                            <constraint firstItem="VIb-sn-sKn" firstAttribute="top" secondItem="GcL-4i-oJS" secondAttribute="bottom" constant="40" id="ULN-MI-MqZ"/>
                             <constraint firstItem="GcL-4i-oJS" firstAttribute="leading" secondItem="h7T-Rz-yG1" secondAttribute="leading" constant="40" id="flM-lY-1iT"/>
+                            <constraint firstItem="VIb-sn-sKn" firstAttribute="leading" secondItem="h7T-Rz-yG1" secondAttribute="leading" constant="40" id="jAW-a5-996"/>
                             <constraint firstItem="GcL-4i-oJS" firstAttribute="top" secondItem="h7T-Rz-yG1" secondAttribute="top" constant="40" id="zrp-i0-Plo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h7T-Rz-yG1"/>
                     </view>
-                    <navigationItem key="navigationItem" id="U2J-RC-pmw"/>
+                    <navigationItem key="navigationItem" title="Country Info" id="U2J-RC-pmw"/>
                     <connections>
                         <outlet property="flagImageView" destination="GcL-4i-oJS" id="Ndy-VV-Ruk"/>
+                        <outlet property="stackView" destination="VIb-sn-sKn" id="3M8-Op-YcM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXB-Bn-4cj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

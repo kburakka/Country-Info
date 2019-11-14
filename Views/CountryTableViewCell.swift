@@ -24,6 +24,6 @@ class CountryTableViewCell: UITableViewCell {
     }
     public func configure(with model: Country) {
         flag.image = model.flag?.image
-        name.text = model.name
+        name.text = model.Name
     }
 }
