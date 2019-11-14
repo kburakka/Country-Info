@@ -17,17 +17,22 @@ class TableViewController: UITableViewController {
         setCountries()
         
         let favButton : UIBarButtonItem = UIBarButtonItem(title: "Favorites", style: .plain, target: self, action: #selector(showFavorites))
-
         self.navigationItem.rightBarButtonItem = favButton
     }
-    
+    func errorMessage(msg:String){
+        let alert = UIAlertController(title: "Warning!", message: msg, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Back", style: UIAlertAction.Style.default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     @objc func showFavorites(){
         countries.removeAll()
         let list = countriesInFavoriteList()
         if list.count>1{
             showActivityIndicator(selectedView: view)
         }else{
-            print("no favorites")
+            errorMessage(msg: "There is no favorite.")
         }
         for index in 0..<list.count{
             let url = "https://restcountries.eu/rest/v2/alpha/\(list[index])"

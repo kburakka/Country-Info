@@ -5,7 +5,6 @@ use_frameworks!
 
 pod 'Alamofire'
 pod 'SwiftyJSON', '~> 4.2.0'
-pod 'Toast-Swift', '~> 4.0.0'
 pod 'SDWebImage', '~> 5.0'
 pod 'MarqueeLabel', '~> 3.2.0'
 

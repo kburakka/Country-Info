@@ -15,6 +15,12 @@ class CountryDetailController: UIViewController {
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var seperator: UIView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setFlagImageView()
+        setDetails()
+    }
+    
     func setFlagImageView(){
         flagImageView.image = selectedCountry?.flag?.image
 
@@ -28,6 +34,7 @@ class CountryDetailController: UIViewController {
         seperator.layer.shadowOffset = CGSize(width: 3, height: 3)
         seperator.layer.shadowRadius = 10
     }
+    
     @IBAction func show(_ sender: Any) {
         let controller = mainStoryboard.instantiateViewController(withIdentifier: "mapView") as! MapViewController
         controller.modalPresentationStyle = .fullScreen
@@ -77,10 +84,5 @@ class CountryDetailController: UIViewController {
                 stackView.addArrangedSubview(stackViewHorizontal)
             }
         }
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setFlagImageView()
-        setDetails()
     }
 }
