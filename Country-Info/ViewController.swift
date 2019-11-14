@@ -8,6 +8,8 @@
 
 import UIKit
 
+var selectedRegion = ""
+
 struct Region {
     let name : String
     let image : UIImage
