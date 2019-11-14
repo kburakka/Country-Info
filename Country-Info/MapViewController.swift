@@ -12,12 +12,16 @@ import SwiftyJSON
 import Alamofire
 
 class MapViewController: UIViewController,MKMapViewDelegate {
-
+    
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = selectedCountry?.Name
         mapView.delegate = self
+        showOnMap()
+    }
+    
+    func showOnMap(){
         guard let code = selectedCountry?.alpha3Code else {
             let controller = mainStoryboard.instantiateViewController(withIdentifier: "countryDetail") as! CountryDetailController
             controller.modalPresentationStyle = .fullScreen
@@ -42,10 +46,9 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                             for index2 in 0..<coordinates[index].count{
                                 var coords = [CLLocationCoordinate2D]()
                                 for index3 in 0..<coordinates[index][index2].count{
-                                    
                                     let point = CLLocationCoordinate2D(latitude: coordinates[index][index2][index3][1].double!, longitude: coordinates[index][index2][index3][0].double!)
-                                  coords.append(point)
-                                allCoords.append(point)
+                                    coords.append(point)
+                                    allCoords.append(point)
                                 }
                                 let polyline = MKPolygon(coordinates: &coords, count: coords.count)
                                 self.mapView?.addOverlay(polyline)
@@ -63,48 +66,39 @@ class MapViewController: UIViewController,MKMapViewDelegate {
                             self.mapView?.addOverlay(polygon)
                         }
                     }
-                    let bbox = self.findBbox(coordinates: allCoords)
-                    var span = MKCoordinateSpan()
-                    span.latitudeDelta = fabs(bbox[3] - bbox[1])
-                    span.longitudeDelta = fabs(bbox[2] - bbox[0])
-
-                    var center = CLLocationCoordinate2D()
-                    center.latitude = fmax(bbox[3], bbox[1]) - (span.latitudeDelta / 2.0)
-                    center.longitude = fmax(bbox[2], bbox[0]) - (span.longitudeDelta / 2.0)
-
-                    var region = MKCoordinateRegion()
-                    region.center = center
-                    region.span = span
-                    self.mapView.setRegion( region, animated: false )
+                    let bbox = findBbox(coordinates: allCoords)
+                    self.setCenter(bbox: bbox)
                 }
             }
         }
     }
+    
+    func setCenter(bbox:[Double]){
+        var span = MKCoordinateSpan()
+        span.latitudeDelta = fabs(bbox[3] - bbox[1])
+        span.longitudeDelta = fabs(bbox[2] - bbox[0])
+        
+        var center = CLLocationCoordinate2D()
+        center.latitude = fmax(bbox[3], bbox[1]) - (span.latitudeDelta / 2.0)
+        center.longitude = fmax(bbox[2], bbox[0]) - (span.longitudeDelta / 2.0)
+        
+        var region = MKCoordinateRegion()
+        region.center = center
+        region.span = span
+        self.mapView.setRegion( region, animated: false )
 
+    }
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolygon {
             let polygonView = MKPolygonRenderer(overlay: overlay)
-            polygonView.strokeColor = UIColor.magenta
-            polygonView.fillColor = .red
+            polygonView.strokeColor = .brown
+            polygonView.fillColor = .blue
             polygonView.alpha = 0.5
             return polygonView
         }
-        
         return MKOverlayRenderer()
     }
-    func findBbox(coordinates : [CLLocationCoordinate2D]) -> [Double]{
-        
-        let maxLat = coordinates.map({$0.latitude}).max()
-        let minLat = coordinates.map({$0.latitude}).min()
-        
-        let maxLng = coordinates.map({$0.longitude}).max()
-        let minLng = coordinates.map({$0.longitude}).min()
-        
-        let bbox = [minLng,minLat,maxLng,maxLat]
-        
-        return bbox as! [Double]
-    }
-
 }
 
 

@@ -8,18 +8,6 @@
 
 import UIKit
 
-var selectedRegion = ""
-
-struct Region {
-    let name : String
-    let image : UIImage
-    
-    init(name: String, image:UIImage) {
-        self.name = name
-        self.image = image
-    }
-}
-
 class ViewController: UIViewController{
     var regionList = [Region]()
 

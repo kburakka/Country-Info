@@ -8,6 +8,9 @@
 
 import Foundation
 import UIKit
+import MapKit
+import CoreData
+
 var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 let container: UIView = UIView()
 let loadingView: UIView = UIView()
@@ -56,4 +59,105 @@ func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
         alpha: CGFloat(1.0)
     )
+}
+func findBbox(coordinates : [CLLocationCoordinate2D]) -> [Double]{
+    
+    let maxLat = coordinates.map({$0.latitude}).max()
+    let minLat = coordinates.map({$0.latitude}).min()
+    
+    let maxLng = coordinates.map({$0.longitude}).max()
+    let minLng = coordinates.map({$0.longitude}).min()
+    
+    let bbox = [minLng,minLat,maxLng,maxLat]
+    
+    return bbox as! [Double]
+}
+ 
+
+func addFavorite(code:String){
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let menagedContext = appDelegate.persistentContainer.viewContext
+    let favoriteEntity = NSEntityDescription.entity(forEntityName: "Favorites", in: menagedContext)!
+
+    let favorite = NSManagedObject(entity: favoriteEntity, insertInto: menagedContext)
+    favorite.setValue(code, forKey: "code")
+    do{
+        try menagedContext.save()
+    }catch{
+        print("error")
+    }
+}
+
+func deleteAllFavorites(){
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let menagedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorites")
+
+    do{
+        let objects = try menagedContext.fetch(fetchRequest)
+        for index in 0..<objects.count{
+            let objectToDelete = objects[index] as! NSManagedObject
+            menagedContext.delete(objectToDelete)
+        }
+        try menagedContext.save()
+    }catch{
+        print("error")
+    }
+}
+
+func deleteFavorite(code:String){
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let menagedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorites")
+
+    let predicate = NSPredicate(format: "code = %@", code)
+    fetchRequest.predicate = predicate
+    do{
+        let objects = try menagedContext.fetch(fetchRequest)
+        if objects.count > 0{
+            let objectToDelete = objects[0] as! NSManagedObject
+            menagedContext.delete(objectToDelete)
+            try menagedContext.save()
+        }
+    }catch{
+        print("error")
+    }
+}
+func isCountryInFavoriteList(code:String)-> Bool{
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let menagedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorites")
+
+    do{
+        let predicate = NSPredicate(format: "code = %@", code)
+        fetchRequest.predicate = predicate
+        
+        let result = try menagedContext.fetch(fetchRequest)
+        if result.count == 0 {
+            return false
+        }else{
+            return true
+        }
+    }catch{
+        print("error")
+        return true
+    }
+}
+
+func countriesInFavoriteList()-> [String]{
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let menagedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorites")
+
+    do{
+        var favorites = [String]()
+        let result = try menagedContext.fetch(fetchRequest)
+        for index in result as! [NSManagedObject]{
+            favorites.append(index.value(forKey: "code") as! String)
+        }
+        return favorites
+    }catch{
+        print("error")
+        return []
+    }
 }

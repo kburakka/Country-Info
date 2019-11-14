@@ -8,7 +8,6 @@
 
 import UIKit
 import MarqueeLabel
-var selectedCountry : Country?
 
 class CountryDetailController: UIViewController {
 
@@ -78,7 +77,6 @@ class CountryDetailController: UIViewController {
                 stackView.addArrangedSubview(stackViewHorizontal)
             }
         }
-
     }
     override func viewDidLoad() {
         super.viewDidLoad()
