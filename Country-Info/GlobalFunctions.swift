@@ -17,7 +17,7 @@ let loadingView: UIView = UIView()
 
 func showActivityIndicator(selectedView: UIView){
     if #available(iOS 10.0, *) {
-        var timeLeft = 20
+        var timeLeft = 60
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             timeLeft -= 1
             if timeLeft <= 0 {
@@ -87,6 +87,7 @@ func addFavorite(code:String){
         print("error")
     }
 }
+
 
 func deleteAllFavorites(){
     let appDelegate = UIApplication.shared.delegate as! AppDelegate

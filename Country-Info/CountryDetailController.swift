@@ -23,7 +23,6 @@ class CountryDetailController: UIViewController {
     
     func setFlagImageView(){
         flagImageView.image = selectedCountry?.flag?.image
-
         flagImageView.layer.shadowColor = UIColor.black.cgColor
         flagImageView.layer.shadowOpacity = 0.77
         flagImageView.layer.shadowOffset = .zero
@@ -33,13 +32,6 @@ class CountryDetailController: UIViewController {
         seperator.layer.shadowOpacity = 0.77
         seperator.layer.shadowOffset = CGSize(width: 3, height: 3)
         seperator.layer.shadowRadius = 10
-    }
-    
-    @IBAction func show(_ sender: Any) {
-        let controller = mainStoryboard.instantiateViewController(withIdentifier: "mapView") as! MapViewController
-        controller.modalPresentationStyle = .fullScreen
-        controller.modalTransitionStyle = .flipHorizontal
-        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func setDetails(){
@@ -84,5 +76,26 @@ class CountryDetailController: UIViewController {
                 stackView.addArrangedSubview(stackViewHorizontal)
             }
         }
+        let stackViewHorizontal   = UIStackView()
+        stackViewHorizontal.axis  = .horizontal
+        stackViewHorizontal.distribution  = .fillProportionally
+        stackViewHorizontal.spacing   = 16.0
+        stackViewHorizontal.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+        let button = UIButton()
+        button.setTitle("Show on Map", for: .normal)
+        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        button.backgroundColor = UIColor.darkGray
+        button.addTarget(self, action:#selector(showOnMap) , for: .touchUpInside)
+
+        stackViewHorizontal.addArrangedSubview(button)
+        stackView.distribution = .fillEqually
+        stackView.addArrangedSubview(stackViewHorizontal)
+    }
+    @objc func showOnMap(){
+        let controller = mainStoryboard.instantiateViewController(withIdentifier: "mapView") as! MapViewController
+        controller.modalPresentationStyle = .fullScreen
+        controller.modalTransitionStyle = .flipHorizontal
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
